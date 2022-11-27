@@ -23,18 +23,19 @@ class Car:
                 liters = self.tank_capacity
                 print(f'Tanked {liters}')
                 self.tanked_fuel = liters
-            elif liters > self.tank_capacity:
-                raise ValueError(f'You can not fill on {liters} because tank have {self.tank_capacity} liter capacity')
+            elif liters < self.tank_capacity < liters + self.tanked_fuel:
+                raise ValueError(f'You cannot refuel more than tank capacity: {self.tank_capacity}')
             else:
-                print(f'Tanked {liters}')
                 self.tanked_fuel = liters + self.tanked_fuel
+                print(f'Tanked {liters}')
 
     def __str__(self):
         return f'New car of brand {self.brand}, with tank full in ' \
                f'{(self.tanked_fuel / self.tank_capacity).__round__(3)*100}%'
 
 
-auto = Car(brand="Fiat", tank_capacity=60, tanked_fuel=40, engine_type="Gasoline")
+auto = Car(brand="Fiat", tank_capacity=60, tanked_fuel=20, engine_type="Gasoline")
 auto.fill_tank(10)
+auto.fill_tank(40)
 print(auto)
-print(repr(auto))
+
