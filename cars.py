@@ -29,13 +29,24 @@ class Car:
                 self.tanked_fuel = liters + self.tanked_fuel
                 print(f'Tanked {liters}')
 
+    def empty_tank(self, limit=None):
+        if not limit:
+            self.tanked_fuel = 0
+        else:
+            self.tanked_fuel = self.tanked_fuel - limit
+
     def __str__(self):
-        return f'New car of brand {self.brand}, with tank full in ' \
+        return f'Car of brand {self.brand}, with tank full in ' \
                f'{(self.tanked_fuel / self.tank_capacity).__round__(3)*100}%'
 
 
-auto = Car(brand="Fiat", tank_capacity=60, tanked_fuel=20, engine_type="Gasoline")
+auto = Car(brand="Fiat", tank_capacity=60, tanked_fuel=30, engine_type="Gasoline")
 auto.fill_tank(10)
-auto.fill_tank(40)
+auto.fill_tank(19)
 print(auto)
-
+auto.empty_tank()
+print(auto)
+auto.fill_tank()
+print(auto)
+auto.empty_tank(50)
+print(auto)
