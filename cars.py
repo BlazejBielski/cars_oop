@@ -1,3 +1,6 @@
+import numpy as np
+
+
 class Car:
     def __init__(self, brand, tank_capacity, tanked_fuel, engine_type):
         self.brand = brand
@@ -30,10 +33,12 @@ class Car:
                 print(f'Tanked {liters}')
 
     def empty_tank(self, limit=None):
-        if not limit:
-            self.tanked_fuel = 0
+        if limit in np.arange(0, 1.1, 0.1):
+            self.tanked_fuel = self.tank_capacity * limit
+            print(f'Empty {self.tanked_fuel} liters')
+            self.tanked_fuel = self.tank_capacity - self.tanked_fuel
         else:
-            self.tanked_fuel = self.tanked_fuel - limit
+            raise ValueError(f'You must enter a value in the range 0-1 in steps of 0.1')
 
     def __str__(self):
         return f'Car of brand {self.brand}, with tank full in ' \
@@ -44,9 +49,13 @@ auto = Car(brand="Fiat", tank_capacity=60, tanked_fuel=30, engine_type="Gasoline
 auto.fill_tank(10)
 auto.fill_tank(19)
 print(auto)
-auto.empty_tank()
+auto.empty_tank_prototype()
 print(auto)
 auto.fill_tank()
 print(auto)
-auto.empty_tank(50)
+auto.empty_tank_prototype(50)
 print(auto)
+auto.fill_tank()
+auto.empty_tank(1)
+print(auto)
+
